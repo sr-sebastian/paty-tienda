@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tienda de Patricia Camargo · Natura y blanquería</title>
+<meta name="description" content="Productos Natura, sábanas, toallas y más. Armá tu pedido y mandalo por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="encabezado">
+  <div class="contenedor">
+    <a href="#inicio" class="marca">
+      <span class="marca-nombre" data-tienda>[Nombre de la tienda]</span>
+      <span class="marca-sub">Natura · Blanquería</span>
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#comprar">Cómo comprar</a>
+      <a href="#sobre">Sobre mí</a>
+      <a href="#pedido" class="btn-pedido">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4B26A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+        Mi pedido <span class="contador" id="contador" aria-label="productos en el pedido">0</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="inicio" class="portada">
+  <div class="contenedor">
+    <div class="portada-texto">
+      <p class="eyebrow">Perfumes · Cuidado personal · Blanquería</p>
+      <h1>Lo lindo, para vos y para tu casa</h1>
+      <p class="lead">Productos Natura, sábanas, toallas y más. Elegí lo que te gusta, armá tu pedido acá y te lo confirmo por WhatsApp.</p>
+      <div class="botones">
+        <a href="#catalogo" class="btn btn-oro">Ver catálogo</a>
+        <a href="#" class="btn btn-linea" data-wa target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4B26A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
+          Escribime
+        </a>
+      </div>
+    </div>
+    <div class="portada-visual" aria-hidden="true">
+      <div class="caja-grande plum" style="height: 270px">
+        <span class="chico" style="font-size: 8px">Edición festiva</span>
+        <div class="etiqueta">
+          <span class="nombre-caja">ESSENCIAL</span>
+          <span class="chico">Desejos</span>
+        </div>
+        <span class="chico" style="letter-spacing: 0.14em">100 ml</span>
+      </div>
+      <div class="caja-grande ivory" style="height: 300px">
+        <svg width="110" height="160" viewBox="0 0 140 190" fill="none" stroke="#B8954C" stroke-width="1.6" stroke-linecap="round">
+          <path d="M70 185C66 140 74 100 70 60"/><path d="M70 120c-18-6-32-22-34-40 18 2 32 18 34 40z"/><path d="M70 96c16-8 28-26 28-42-16 4-28 22-28 42z"/><path d="M70 60c-10-6-14-18-10-30 10 4 14 18 10 30z"/><path d="M70 60c10-6 14-18 10-30-10 4-14 18-10 30z"/><path d="M70 60c-14 0-22-8-24-18 12 0 22 8 24 18z"/><path d="M70 60c14 0 22-8 24-18-12 0-22 8-24 18z"/><circle cx="70" cy="44" r="4"/><path d="M70 150c-14-2-26-12-30-24 14 0 26 10 30 24z"/>
+        </svg>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+          <span class="nombre-caja">ESSENCIAL</span>
+          <span class="chico" style="font-size: 8px">Exclusivo Floral</span>
+        </div>
+      </div>
+      <div class="pila">
+        <div class="tela t-white franja"></div>
+        <div class="tela t-linen franja"></div>
+        <div class="tela t-sage franja"></div>
+        <div class="tela t-rose"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="beneficios" aria-label="Beneficios">
+  <div class="contenedor">
+    <div class="beneficio">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4B26A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7l-8-4-8 4v10l8 4 8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg>
+      <div><b>A pronta entrega</b><span>Productos con stock disponible</span></div>
+    </div>
+    <div class="beneficio">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4B26A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      <div><b>Envíos a [TU ZONA]</b><span>O retiro coordinado</span></div>
+    </div>
+    <div class="beneficio">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4B26A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg>
+      <div><b>Pagos: [MÉTODOS]</b><span>Efectivo, transferencia…</span></div>
+    </div>
+    <div class="beneficio">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4B26A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M12 9v12M3 13h18M12 9c-2-4-6-4-6-1.5S10 9 12 9zM12 9c2-4 6-4 6-1.5S14 9 12 9z"/></svg>
+      <div><b>Listos para regalar</b><span>Te asesoro para elegir</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contenedor mundos" aria-label="Secciones de la tienda">
+  <a href="#catalogo" class="mundo mundo-natura" data-filtro="natura">
+    <div class="mundo-arte" aria-hidden="true">
+      <div class="caja plum" style="height: 112px"></div>
+      <div class="caja ivory" style="height: 124px"></div>
+      <div class="caja sea" style="height: 100px"></div>
+    </div>
+    <span class="eyebrow">Revendedora Natura</span>
+    <span class="mundo-titulo">Perfumes y cuidado personal</span>
+    <span class="mundo-link">Ver productos Natura →</span>
+  </a>
+  <a href="#catalogo" class="mundo mundo-blanqueria" data-filtro="blanqueria">
+    <div class="mundo-arte pila" aria-hidden="true" style="display: flex; flex-direction: column">
+      <div class="tela t-white franja" style="width: 150px"></div>
+      <div class="tela t-linen franja" style="width: 140px"></div>
+      <div class="tela t-clay franja" style="width: 130px"></div>
+    </div>
+    <span class="eyebrow">Blanquería y hogar</span>
+    <span class="mundo-titulo">Sábanas, toallas y más</span>
+    <span class="mundo-link">Ver blanquería →</span>
+  </a>
+</section>
+
+<section id="catalogo" class="contenedor catalogo">
+  <div class="catalogo-cabecera">
+    <div>
+      <p class="eyebrow">Catálogo</p>
+      <h2 class="titulo">Elegí tus favoritos</h2>
+    </div>
+    <p>Natura y blanquería en un solo lugar. Si buscás algo que no está acá, consultame.</p>
+  </div>
+  <div class="filtros" id="filtros" role="group" aria-label="Filtrar por categoría"></div>
+  <div class="grilla" id="grilla"></div>
+</section>
+
+<section id="pedido" class="contenedor pedido">
+  <div class="pedido-panel">
+    <div class="pedido-intro">
+      <p class="eyebrow">Tu pedido</p>
+      <h2 class="titulo" id="pedido-titulo">Vacío por ahora</h2>
+      <p>Cuando esté listo, mandámelo por WhatsApp: te confirmo stock, total y entrega.</p>
+    </div>
+    <div class="pedido-lista">
+      <div class="vacio" id="pedido-vacio">Todavía no agregaste productos. <a href="#catalogo">Ir al catálogo</a></div>
+      <ul class="items" id="pedido-items" hidden></ul>
+      <div class="pedido-acciones" id="pedido-acciones" hidden>
+        <button type="button" class="btn btn-borde" id="vaciar">Vaciar</button>
+        <a href="#" class="btn btn-vino" data-wa target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4B26A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
+          Enviar pedido por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="comprar" class="comprar">
+  <div class="contenedor">
+    <h2 class="titulo">Cómo comprar</h2>
+    <ol class="pasos">
+      <li class="paso"><span class="paso-num">01</span><b>Elegí tus productos</b><span>Natura, sábanas, toallas: agregalos a tu pedido desde el catálogo.</span></li>
+      <li class="paso"><span class="paso-num">02</span><b>Enviámelo por WhatsApp</b><span>El mensaje se arma solo con tu lista.</span></li>
+      <li class="paso"><span class="paso-num">03</span><b>Coordinamos entrega y pago</b><span>Te confirmo total, stock y cuándo lo recibís.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="sobre" class="contenedor sobre">
+  <div class="avatar" aria-hidden="true">PC</div>
+  <div class="sobre-texto">
+    <p class="eyebrow">Sobre mí</p>
+    <h2 class="titulo">Hola, soy Patricia Camargo</h2>
+    <p class="cuerpo">Vendo productos Natura y blanquería para la casa: sábanas, toallas y más. Te ayudo a encontrar el perfume, el juego de cama o el regalo justo. [Contá en una o dos líneas desde cuándo vendés y qué te gusta recomendar.]</p>
+    <a href="#" class="link-wa" data-wa target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
+      Escribime por WhatsApp
+    </a>
+  </div>
+</section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <span><span class="pie-marca" data-tienda>[Nombre de la tienda]</span> · Patricia Camargo · Revendedora independiente de productos Natura · Blanquería y hogar</span>
+    <span>Precios y stock sujetos a confirmación.</span>
+  </div>
+</footer>
+
+<script src="productos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
