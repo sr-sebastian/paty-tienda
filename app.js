@@ -54,8 +54,10 @@
   function arte(p) {
     if (p.grupo === "natura") {
       return el("div", { class: "caja " + p.tono, "aria-hidden": "true" }, [
-        el("span", { class: "ln", texto: p.caja[0] }),
-        el("span", { class: "sub", texto: p.caja[1] }),
+        el("div", { class: "rotulo" }, [
+          el("span", { class: "ln", texto: p.caja[0] }),
+          el("span", { class: "sub", texto: p.caja[1] }),
+        ]),
       ]);
     }
     return el(

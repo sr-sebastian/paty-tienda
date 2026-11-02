@@ -104,9 +104,13 @@ img, svg { display: block; }
 .agregar.en-pedido:hover { background: #dcc8a8; }
 
 /* Cajas de producto (Natura) */
-.caja { width: 112px; height: 180px; padding: 12px 6px 14px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; box-shadow: 0 14px 28px rgba(42, 20, 28, 0.22); }
-.caja .ln { max-width: 100%; font: 600 14px/1 var(--serif); letter-spacing: 0.06em; text-transform: uppercase; text-align: center; overflow-wrap: anywhere; }
-.caja .sub { font: 500 9px/1.25 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; text-align: center; }
+.caja { width: 124px; height: 184px; padding: 12px 8px 14px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; box-shadow: 0 14px 28px rgba(42, 20, 28, 0.22); }
+.rotulo { width: 100%; padding: 8px 4px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.caja .ln { max-width: 100%; font: 600 15px/1 var(--serif); letter-spacing: 0.04em; text-transform: uppercase; text-align: center; overflow-wrap: anywhere; }
+.caja .sub { font: 500 10px/1.25 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; text-align: center; }
+/* El punteado va solo en la caja; los textos van sobre un rótulo liso para que se lean bien. */
+.plum .rotulo, .caja-grande.plum .etiqueta { background: #4a1c2c; border: 1px solid var(--oro-linea); }
+.caja-grande.plum > .chico { background: #5a2436; padding: 3px 6px; }
 .mundo-arte .caja { width: 64px; padding: 0; }
 .plum { background: #5a2436 radial-gradient(#d4b26a 1px, transparent 1.6px) 0 0 / 9px 9px; color: #ebd49b; border: 1px solid var(--oro-linea); }
 .ivory { background: #fbf6ec; color: var(--oro-texto); border: 1px solid #d9c69e; }
@@ -114,7 +118,7 @@ img, svg { display: block; }
 .sea { background: #2f6e7a; color: #f3ebdd; }
 .rose { background: #ebc3be; color: var(--vino-claro); }
 .berry { background: #a8344f; color: #fff0f2; }
-.amber { background: #b97a22; color: #fff7e8; }
+.amber { background: #8e5a12; color: #fff7e8; }
 .sand { background: #e9e0d2; color: #4d3e30; border: 1px solid #d2c3ae; }
 
 /* Pilas de tela (blanquería) */
@@ -179,7 +183,8 @@ img, svg { display: block; }
 @media (max-width: 600px) {
   .portada .contenedor { padding-block: 56px 64px; }
   .portada-visual { gap: 12px; }
-  .caja-grande { width: 112px; padding: 12px; }
+  .caja-grande { width: 132px; padding: 10px; }
+  .caja-grande .nombre-caja { font-size: 14px; letter-spacing: 0.03em; }
   .portada-visual .pila { display: none; }
   .encabezado { position: static; }
   .mundo { padding: 28px; min-height: 0; }
