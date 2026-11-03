@@ -12,12 +12,7 @@ Los productos, las fotos y los datos de la tienda se guardan en [Supabase](https
 1. **Crear el proyecto.** Entrá a https://supabase.com, creá una cuenta y un proyecto nuevo (cualquier nombre, región São Paulo).
 2. **Crear las tablas.** En el proyecto: **SQL Editor → New query**, pegá todo el contenido de [`supabase/esquema.sql`](supabase/esquema.sql) y tocá **Run**. Crea las tablas, los permisos, la carpeta de fotos y carga los productos de ejemplo.
 3. **Crear el usuario de Patricia.** **Authentication → Users → Add user → Create new user**, con su email y una contraseña. Marcá *Auto Confirm User*.
-4. **Darle permiso para editar.** En el **SQL Editor** corré, con su email:
-   ```sql
-   insert into public.admins (user_id)
-   select id from auth.users where email = 'EMAIL_DE_PATRICIA'
-   on conflict do nothing;
-   ```
+4. **Darle permiso para editar.** Corré [`supabase/admins.sql`](supabase/admins.sql) en el **SQL Editor**: las cuentas con los emails de esa lista quedan como administradoras al crearse, aunque se creen después. Reemplazá `EMAIL_DE_PATRICIA` por su email solo en el SQL Editor, no en el repo (es público). Ya está corrido para Patricia.
 5. **Cerrar el registro.** **Authentication → Sign In / Providers → Email**: desactivá *Allow new users to sign up*. Así nadie más puede crearse una cuenta. Igual, solo los usuarios de la tabla `admins` pueden editar.
 6. **Conectar la página.** En **Project Settings → API** copiá la *Project URL* y la clave *anon public* (o *publishable*) y pegalas en [`config.js`](config.js). Esa clave es pública a propósito; lo que protege los datos son los permisos del paso 2. **Nunca** pongas la clave *service_role* / *secret*.
 7. Subí el cambio a `main`. En uno o dos minutos la tienda ya lee de Supabase.
