@@ -11,7 +11,7 @@ Los productos, las fotos y los datos de la tienda se guardan en [Supabase](https
 
 1. **Crear el proyecto.** Entrá a https://supabase.com, creá una cuenta y un proyecto nuevo (cualquier nombre, región São Paulo).
 2. **Crear las tablas.** En el proyecto: **SQL Editor → New query**, pegá todo el contenido de [`supabase/esquema.sql`](supabase/esquema.sql) y tocá **Run**. Crea las tablas, los permisos, la carpeta de fotos y carga los productos de ejemplo.
-3. **Crear el usuario de Patricia.** **Authentication → Users → Add user → Create new user**, con su email y una contraseña. Marcá *Auto Confirm User*.
+3. **Invitar a Patricia.** **Authentication → Users → Add user → Send invitation**, con su email. Le llega un mail; el link la lleva al panel para que elija su contraseña. (Para que el link vaya al panel: **Authentication → URL Configuration**, *Site URL* = `https://sr-sebastian.github.io/paty-tienda/admin.html` y en *Redirect URLs* `https://sr-sebastian.github.io/paty-tienda/**`. Ya está configurado.)
 4. **Darle permiso para editar.** Corré [`supabase/admins.sql`](supabase/admins.sql) en el **SQL Editor**: las cuentas con los emails de esa lista quedan como administradoras al crearse, aunque se creen después. Reemplazá `EMAIL_DE_PATRICIA` por su email solo en el SQL Editor, no en el repo (es público). Ya está corrido para Patricia.
 5. **Cerrar el registro.** **Authentication → Sign In / Providers → Email**: desactivá *Allow new users to sign up*. Así nadie más puede crearse una cuenta. Igual, solo los usuarios de la tabla `admins` pueden editar.
 6. **Conectar la página.** En **Project Settings → API** copiá la *Project URL* y la clave *anon public* (o *publishable*) y pegalas en [`config.js`](config.js). Esa clave es pública a propósito; lo que protege los datos son los permisos del paso 2. **Nunca** pongas la clave *service_role* / *secret*.
@@ -19,7 +19,7 @@ Los productos, las fotos y los datos de la tienda se guardan en [Supabase](https
 
 ## Uso diario (Patricia)
 
-Entrá a `admin.html` con tu email y contraseña.
+Entrá a `admin.html` con tu email y contraseña. Si te la olvidás, escribí tu email y tocá *Olvidé mi contraseña*: te llega un mail para elegir una nueva.
 
 - **Productos:** *Nuevo producto* para agregar, *Editar* para cambiar o eliminar. Podés subir una foto desde el celular (se achica sola). Sin foto, se muestra un dibujo con el color que elijas.
   - *Precio* vacío muestra "Consultar".

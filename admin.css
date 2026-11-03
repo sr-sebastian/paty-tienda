@@ -8,6 +8,7 @@
 .tarjeta p { line-height: 1.6; color: var(--texto-suave); }
 .login { max-width: 440px; width: 100%; margin: 40px auto 0; display: flex; flex-direction: column; gap: 20px; }
 
+.link-boton { align-self: center; min-height: 44px; padding: 0 8px; border: 0; background: transparent; color: var(--vino-claro); font: 500 15px/1 var(--sans); text-decoration: underline; cursor: pointer; }
 .mensaje { margin: 0; padding: 14px 18px; border-radius: 6px; background: #e6efe4; color: #24452c; font-size: 15px; }
 .mensaje.error { background: #f6e0e0; color: #7a1f1f; }
 

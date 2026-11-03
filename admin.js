@@ -30,18 +30,57 @@
   function mostrar(vista) {
     $("sin-config").hidden = vista !== "sin-config";
     $("vista-login").hidden = vista !== "login";
+    $("vista-clave").hidden = vista !== "clave";
     $("vista-panel").hidden = vista !== "panel";
     $("salir").hidden = vista !== "panel";
   }
 
   // ---------- Sesión ----------
 
+  // Los links de invitación y de "olvidé mi contraseña" llegan con #...type=invite|recovery.
+  const vieneDeMail = /type=(invite|recovery)/.test(location.hash);
+  const errorDeMail = /error_description=([^&]+)/.exec(location.hash);
+
   async function iniciar() {
     if (!sb) return mostrar("sin-config");
+    if (errorDeMail) {
+      history.replaceState(null, "", location.pathname);
+      mostrar("login");
+      return mostrarMensaje("El link del mail venció o ya se usó. Pedí uno nuevo con «Olvidé mi contraseña».", true);
+    }
     const { data } = await sb.auth.getSession();
+    if (data.session && vieneDeMail) {
+      history.replaceState(null, "", location.pathname);
+      return mostrar("clave");
+    }
     if (data.session) await abrirPanel();
     else mostrar("login");
   }
+
+  $("form-clave").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const f = ev.target;
+    if (f.password.value !== f.repetir.value) return mostrarMensaje("Las dos contraseñas no coinciden.", true);
+    const boton = f.querySelector("button");
+    boton.disabled = true;
+    const { error } = await sb.auth.updateUser({ password: f.password.value });
+    boton.disabled = false;
+    if (error) return mostrarMensaje("No se pudo guardar la contraseña: " + error.message, true);
+    f.reset();
+    mostrarMensaje("Contraseña guardada.");
+    await abrirPanel();
+  });
+
+  $("olvide").addEventListener("click", async () => {
+    const email = $("form-login").email.value.trim();
+    if (!email) {
+      $("form-login").email.focus();
+      return mostrarMensaje("Escribí tu email arriba y tocá de nuevo «Olvidé mi contraseña».", true);
+    }
+    const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+    if (error) return mostrarMensaje("No se pudo mandar el mail: " + error.message, true);
+    mostrarMensaje("Si ese email tiene cuenta, te llegó un mail con un link para elegir una contraseña nueva.");
+  });
 
   $("form-login").addEventListener("submit", async (ev) => {
     ev.preventDefault();

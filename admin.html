@@ -41,6 +41,19 @@
       <label class="campo">Contraseña<input type="password" name="password" autocomplete="current-password" required></label>
       <button type="submit" class="btn btn-vino">Entrar</button>
     </form>
+    <button type="button" class="link-boton" id="olvide">Olvidé mi contraseña</button>
+  </section>
+
+  <section id="vista-clave" class="tarjeta login" hidden>
+    <h1 class="titulo">Elegí tu contraseña</h1>
+    <p>La vas a usar para entrar al panel desde cualquier celular o computadora.</p>
+    <form id="form-clave" class="formulario">
+      <label class="campo">Contraseña nueva<input type="password" name="password" autocomplete="new-password" minlength="8" required>
+        <span class="ayuda">Al menos 8 caracteres.</span>
+      </label>
+      <label class="campo">Repetila<input type="password" name="repetir" autocomplete="new-password" minlength="8" required></label>
+      <button type="submit" class="btn btn-vino">Guardar y entrar</button>
+    </form>
   </section>
 
   <div id="vista-panel" hidden>
