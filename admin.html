@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Panel de la tienda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+
+<header class="encabezado">
+  <div class="contenedor">
+    <span class="marca">
+      <span class="marca-nombre">Panel</span>
+      <span class="marca-sub">Productos y datos de la tienda</span>
+    </span>
+    <nav class="nav" aria-label="Panel">
+      <a href="./" target="_blank" rel="noopener">Ver la tienda ↗</a>
+      <button type="button" class="btn-pedido btn-salir" id="salir" hidden>Salir</button>
+    </nav>
+  </div>
+</header>
+
+<main class="contenedor panel">
+  <p class="mensaje" id="mensaje" role="status" hidden></p>
+
+  <section id="sin-config" class="tarjeta" hidden>
+    <h1 class="titulo">Falta conectar la base de datos</h1>
+    <p>Completá <code>config.js</code> con la URL y la clave pública de Supabase. Los pasos están en el README del repositorio.</p>
+  </section>
+
+  <section id="vista-login" class="tarjeta login" hidden>
+    <h1 class="titulo">Entrar</h1>
+    <form id="form-login" class="formulario">
+      <label class="campo">Email<input type="email" name="email" autocomplete="username" required></label>
+      <label class="campo">Contraseña<input type="password" name="password" autocomplete="current-password" required></label>
+      <button type="submit" class="btn btn-vino">Entrar</button>
+    </form>
+  </section>
+
+  <div id="vista-panel" hidden>
+    <section class="bloque" aria-labelledby="t-productos">
+      <div class="bloque-cabecera">
+        <h1 class="titulo" id="t-productos">Productos</h1>
+        <div class="bloque-acciones">
+          <label class="buscar">
+            <span class="visualmente-oculto">Buscar producto</span>
+            <input type="search" id="buscar" placeholder="Buscar…">
+          </label>
+          <button type="button" class="btn btn-vino" id="nuevo">+ Nuevo producto</button>
+        </div>
+      </div>
+      <ul class="lista-productos" id="lista"></ul>
+    </section>
+
+    <section class="bloque" aria-labelledby="t-datos">
+      <h2 class="titulo" id="t-datos">Datos de la tienda</h2>
+      <form id="form-tienda" class="formulario tarjeta">
+        <div class="fila">
+          <label class="campo">Nombre de la tienda<input name="nombre" required></label>
+          <label class="campo">Tu nombre<input name="duena" required></label>
+        </div>
+        <div class="fila">
+          <label class="campo">WhatsApp
+            <input name="whatsapp" inputmode="tel" placeholder="59899123456">
+            <span class="ayuda">Con código de país, sin + ni espacios.</span>
+          </label>
+          <label class="campo">Zona de envíos<input name="zona" placeholder="Montevideo y Canelones"></label>
+        </div>
+        <label class="campo">Formas de pago<input name="pagos" placeholder="Efectivo y transferencia"></label>
+        <label class="campo">Texto de "Sobre mí"<textarea name="sobre" rows="4"></textarea></label>
+        <div class="acciones-form">
+          <button type="submit" class="btn btn-vino">Guardar datos</button>
+        </div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<dialog id="dialogo" class="dialogo" aria-labelledby="dialogo-titulo">
+  <form id="form-producto" class="formulario" method="dialog">
+    <div class="dialogo-cabecera">
+      <h2 class="titulo" id="dialogo-titulo">Nuevo producto</h2>
+      <button type="button" class="cerrar" id="cerrar" aria-label="Cerrar">×</button>
+    </div>
+    <div class="dialogo-cuerpo">
+      <div class="vista-previa" id="vista-previa" aria-hidden="true"></div>
+      <div class="dialogo-campos">
+        <label class="campo">Nombre<input name="nombre" required placeholder="Essencial Desejos"></label>
+        <div class="fila">
+          <label class="campo">Categoría<select name="cat" id="sel-cat"></select></label>
+          <label class="campo">Línea o marca<input name="linea" placeholder="Natura · Essencial"></label>
+        </div>
+        <label class="campo">Descripción<input name="descripcion" placeholder="Deo parfum femenino"></label>
+        <div class="fila">
+          <label class="campo">Tamaño o medidas<input name="tamano" placeholder="100 ml"></label>
+          <label class="campo">Precio
+            <input name="precio" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Vacío = Consultar">
+          </label>
+        </div>
+        <div class="campo">
+          <span>Foto</span>
+          <div class="foto-acciones">
+            <label class="btn btn-borde subir">Elegir foto<input type="file" name="foto" accept="image/*" class="visualmente-oculto" id="input-foto"></label>
+            <button type="button" class="btn btn-borde" id="quitar-foto" hidden>Quitar foto</button>
+          </div>
+          <span class="ayuda">Sin foto, se muestra un dibujo con el color que elijas.</span>
+        </div>
+        <label class="campo" id="campo-color">Color del dibujo<select name="color" id="sel-color"></select></label>
+        <div class="fila">
+          <label class="check"><input type="checkbox" name="pronta_entrega"> Pronta entrega</label>
+          <label class="check"><input type="checkbox" name="activo" checked> Visible en la tienda</label>
+        </div>
+        <label class="campo campo-orden">Orden<input name="orden" type="number" step="1" value="100">
+          <span class="ayuda">Los números más bajos aparecen primero.</span>
+        </label>
+      </div>
+    </div>
+    <div class="acciones-form">
+      <button type="button" class="btn btn-peligro" id="eliminar" hidden>Eliminar</button>
+      <span class="espacio"></span>
+      <button type="button" class="btn btn-borde" id="cancelar">Cancelar</button>
+      <button type="submit" class="btn btn-vino" id="guardar">Guardar</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="catalogo.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,21 +1,28 @@
 (function () {
-  const tienda = window.TIENDA;
-  const productos = window.PRODUCTOS;
+  const { CATEGORIAS, GRUPOS, grupoDe, el, formatoPrecio, arte } = window.Catalogo;
   const CLAVE = "paty-tienda-pedido";
 
-  const FILTROS = [
-    { id: "todos", label: "Todos" },
-    { id: "natura", label: "Natura", grupo: true },
-    { id: "perfumes", label: "Perfumes" },
-    { id: "cuidado", label: "Cuidado personal" },
-    { id: "blanqueria", label: "Blanquería", grupo: true },
-    { id: "sabanas", label: "Sábanas" },
-    { id: "toallas", label: "Toallas" },
-    { id: "hogar", label: "Acolchados y mantas" },
-  ];
-
+  let tienda = window.DATOS_EJEMPLO.tienda;
+  let productos = [];
   let filtro = "todos";
-  let pedido = leerPedido();
+  let pedido = {};
+
+  async function cargar() {
+    const sb = window.Catalogo.cliente();
+    if (!sb) {
+      return { tienda: window.DATOS_EJEMPLO.tienda, productos: window.DATOS_EJEMPLO.productos };
+    }
+    const [t, p] = await Promise.all([
+      sb.from("tienda").select("*").eq("id", 1).maybeSingle(),
+      sb.from("productos").select("*").eq("activo", true).order("orden").order("nombre"),
+    ]);
+    if (t.error) throw t.error;
+    if (p.error) throw p.error;
+    return {
+      tienda: Object.assign({}, window.DATOS_EJEMPLO.tienda, t.data || {}),
+      productos: p.data.map((x) => Object.assign({}, x, { precio: x.precio === null ? null : Number(x.precio) })),
+    };
+  }
 
   function leerPedido() {
     try {
@@ -36,37 +43,6 @@
     } catch (e) {}
   }
 
-  function el(tag, attrs, hijos) {
-    const nodo = document.createElement(tag);
-    for (const k in attrs || {}) {
-      if (k === "texto") nodo.textContent = attrs[k];
-      else if (k.startsWith("on")) nodo.addEventListener(k.slice(2), attrs[k]);
-      else nodo.setAttribute(k, attrs[k]);
-    }
-    for (const h of hijos || []) if (h) nodo.appendChild(h);
-    return nodo;
-  }
-
-  function formatoPrecio(p) {
-    return typeof p === "number" ? "$ " + p.toLocaleString("es-UY") : "Consultar";
-  }
-
-  function arte(p) {
-    if (p.grupo === "natura") {
-      return el("div", { class: "caja " + p.tono, "aria-hidden": "true" }, [
-        el("div", { class: "rotulo" }, [
-          el("span", { class: "ln", texto: p.caja[0] }),
-          el("span", { class: "sub", texto: p.caja[1] }),
-        ]),
-      ]);
-    }
-    return el(
-      "div",
-      { class: "pila", "aria-hidden": "true" },
-      p.telas.map((t) => el("div", { class: "tela t-" + t + (p.franja ? " franja" : "") }))
-    );
-  }
-
   function cambiarCantidad(id, cantidad) {
     if (cantidad <= 0) delete pedido[id];
     else pedido[id] = cantidad;
@@ -74,10 +50,23 @@
     render();
   }
 
+  function filtrosDisponibles() {
+    const usadas = new Set(productos.map((p) => p.cat));
+    const lista = [{ id: "todos", label: "Todos" }];
+    for (const g of GRUPOS) {
+      const cats = CATEGORIAS.filter((c) => c.grupo === g.id && usadas.has(c.id));
+      if (!cats.length) continue;
+      lista.push({ id: g.id, label: g.label, grupo: true });
+      // Un grupo con una sola categoría del mismo nombre ("Otros") no necesita otro botón.
+      if (cats.length === 1 && cats[0].label === g.label) continue;
+      for (const c of cats) lista.push({ id: c.id, label: c.label });
+    }
+    return lista;
+  }
+
   function renderFiltros() {
-    const cont = document.getElementById("filtros");
-    cont.replaceChildren(
-      ...FILTROS.map((f) =>
+    document.getElementById("filtros").replaceChildren(
+      ...filtrosDisponibles().map((f) =>
         el("button", {
           type: "button",
           class: "chip" + (f.grupo ? " grupo" : ""),
@@ -93,19 +82,25 @@
   }
 
   function renderGrilla() {
-    const visibles = productos.filter((p) => filtro === "todos" || p.cat === filtro || p.grupo === filtro);
-    document.getElementById("grilla").replaceChildren(
+    const visibles = productos.filter((p) => filtro === "todos" || p.cat === filtro || grupoDe(p.cat) === filtro);
+    const grilla = document.getElementById("grilla");
+    if (!visibles.length) {
+      grilla.replaceChildren(el("p", { class: "aviso", texto: "No hay productos en esta sección por ahora." }));
+      return;
+    }
+    grilla.replaceChildren(
       ...visibles.map((p) => {
         const cant = pedido[p.id] || 0;
+        const detalle = [p.descripcion, p.tamano].filter(Boolean).join(" · ");
         return el("article", { class: "producto" }, [
-          el("div", { class: "producto-arte" }, [
-            p.prontaEntrega ? el("span", { class: "badge", texto: "Pronta entrega" }) : null,
+          el("div", { class: "producto-arte" + (p.foto_url ? " con-foto" : "") }, [
+            p.pronta_entrega ? el("span", { class: "badge", texto: "Pronta entrega" }) : null,
             arte(p),
           ]),
           el("div", { class: "producto-info" }, [
-            el("span", { class: "producto-linea", texto: p.linea }),
+            p.linea ? el("span", { class: "producto-linea", texto: p.linea }) : null,
             el("h3", { texto: p.nombre }),
-            el("p", { class: "producto-desc", texto: p.desc + " · " + p.tamano }),
+            detalle ? el("p", { class: "producto-desc", texto: detalle }) : null,
           ]),
           el("div", { class: "producto-pie" }, [
             el("span", { class: "precio", texto: formatoPrecio(p.precio) }),
@@ -137,7 +132,7 @@
         el("li", { class: "item" }, [
           el("div", {}, [
             el("span", { class: "item-nombre", texto: p.nombre }),
-            el("span", { class: "item-detalle", texto: p.tamano + " · " + formatoPrecio(p.precio) }),
+            el("span", { class: "item-detalle", texto: [p.tamano, formatoPrecio(p.precio)].filter(Boolean).join(" · ") }),
           ]),
           el("div", { class: "cantidad" }, [
             el("button", { type: "button", class: "qty", "aria-label": "Quitar uno de " + p.nombre, texto: "−", onclick: () => cambiarCantidad(p.id, cant - 1) }),
@@ -149,13 +144,34 @@
     );
   }
 
+  function primerNombre() {
+    return (tienda.duena || "").trim().split(/\s+/)[0] || "";
+  }
+
   function linkWhatsapp(items) {
+    const hola = "¡Hola " + primerNombre() + "!";
     const msg = items.length
-      ? "¡Hola " + tienda.duena + "! Quiero hacer este pedido:\n" +
-        items.map(({ p, cant }) => "- " + cant + " x " + p.nombre + " (" + p.tamano + ")").join("\n")
-      : "¡Hola " + tienda.duena + "! Quiero consultar por tus productos.";
-    const numero = String(tienda.whatsapp).replace(/[^0-9]/g, "");
+      ? hola + " Quiero hacer este pedido:\n" +
+        items.map(({ p, cant }) => "- " + cant + " x " + p.nombre + (p.tamano ? " (" + p.tamano + ")" : "")).join("\n")
+      : hola + " Quiero consultar por tus productos.";
+    const numero = String(tienda.whatsapp || "").replace(/[^0-9]/g, "");
     return "https://wa.me/" + numero + "?text=" + encodeURIComponent(msg);
+  }
+
+  function renderTienda() {
+    document.querySelectorAll("[data-campo]").forEach((n) => {
+      const v = tienda[n.getAttribute("data-campo")];
+      if (v) n.textContent = v;
+    });
+    const iniciales = (tienda.duena || "")
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((w) => w[0])
+      .join("")
+      .toUpperCase();
+    document.getElementById("avatar").textContent = iniciales;
+    document.title = tienda.nombre + " · Natura y blanquería";
   }
 
   function render() {
@@ -169,7 +185,6 @@
     document.querySelectorAll("[data-wa]").forEach((a) => (a.href = href));
   }
 
-  document.querySelectorAll("[data-tienda]").forEach((n) => (n.textContent = tienda.nombre));
   document.querySelectorAll("[data-filtro]").forEach((a) =>
     a.addEventListener("click", () => {
       filtro = a.getAttribute("data-filtro");
@@ -182,5 +197,18 @@
     render();
   });
 
-  render();
+  cargar()
+    .then((datos) => {
+      tienda = datos.tienda;
+      productos = datos.productos;
+      pedido = leerPedido();
+      renderTienda();
+      render();
+    })
+    .catch((e) => {
+      console.error(e);
+      document.getElementById("grilla").replaceChildren(
+        el("p", { class: "aviso", texto: "No pudimos cargar los productos. Probá de nuevo en un rato o escribime por WhatsApp." })
+      );
+    });
 })();

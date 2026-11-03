@@ -16,6 +16,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--crema); color: var(--tinta); font-family: var(--sans); }
 a { color: var(--vino-claro); }
@@ -91,6 +92,9 @@ img, svg { display: block; }
 .grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 40px 28px; }
 .producto { display: flex; flex-direction: column; gap: 16px; }
 .producto-arte { position: relative; height: 260px; border-radius: 4px; background: var(--arena); display: flex; align-items: center; justify-content: center; }
+.producto-arte.con-foto { background: #f3ece2; overflow: hidden; }
+.foto { width: 100%; height: 100%; object-fit: contain; padding: 16px; mix-blend-mode: multiply; }
+.aviso { grid-column: 1 / -1; margin: 0; padding: 32px; border: 1px dashed var(--borde); border-radius: 6px; text-align: center; color: var(--texto-suave); font-size: 15px; }
 .badge { position: absolute; top: 14px; left: 14px; padding: 6px 10px; border-radius: 999px; background: var(--papel); color: var(--vino); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
 .producto-info { display: flex; flex-direction: column; gap: 6px; }
 .producto-linea { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--oro-texto); }
