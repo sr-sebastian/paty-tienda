@@ -70,16 +70,17 @@ img, svg { display: block; }
 
 /* Mundos */
 .mundos { padding-top: 96px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-.mundo { position: relative; min-height: 300px; border-radius: 6px; padding: 36px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; overflow: hidden; color: var(--crema); text-decoration: none; }
+.mundo { position: relative; min-height: 320px; border-radius: 6px; padding: 36px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; overflow: hidden; color: var(--crema); text-decoration: none; }
 .mundo:hover { color: var(--crema); }
 .mundo-natura { background: var(--vino-claro); }
 .mundo-blanqueria { background: #4a5e52; }
 .mundo-ropa { background: #7a3e52; }
 .mundo-ropa .eyebrow { color: #f3d9dc; }
-.mundo-arte { position: absolute; top: 32px; right: 32px; display: flex; align-items: flex-end; gap: 14px; }
+/* El dibujo va arriba a la derecha, en el flujo: nunca tapa el texto. */
+.mundo-arte { align-self: flex-end; height: 130px; margin-bottom: auto; padding-bottom: 20px; display: flex; align-items: flex-end; justify-content: flex-end; gap: 14px; }
 .mundo .eyebrow { color: #e8cf94; font-size: 12px; }
 .mundo-blanqueria .eyebrow { color: #e3ebdd; }
-.mundo-titulo { font-family: var(--serif); font-size: 44px; font-weight: 500; line-height: 1; }
+.mundo-titulo { font-family: var(--serif); font-size: clamp(34px, 3.2vw, 42px); font-weight: 500; line-height: 1; }
 .mundo-link { font-size: 15px; }
 
 /* Catálogo */
@@ -208,6 +209,6 @@ img, svg { display: block; }
   .portada-visual .pila { display: none; }
   .encabezado { position: static; }
   .mundo { padding: 28px; min-height: 0; }
-  .mundo-arte { position: static; align-self: flex-end; margin-bottom: 16px; }
+  .mundo-arte { height: 110px; }
   .mundo-titulo { font-size: 36px; }
 }
