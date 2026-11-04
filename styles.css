@@ -44,6 +44,8 @@ img, svg { display: block; }
 .portada .contenedor { padding-block: 88px 96px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px; }
 .portada-texto { flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
 .portada-texto .eyebrow { color: var(--oro); }
+/* Cada rubro queda entero en su renglón ("ropa interior" nunca se separa). */
+.etiquetas span { white-space: nowrap; }
 .portada h1 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(46px, 6vw, 84px); line-height: 0.98; }
 .portada p.lead { margin: 0; max-width: 480px; font-size: 18px; line-height: 1.6; color: #e6d6cc; }
 .botones { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
