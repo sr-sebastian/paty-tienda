@@ -74,6 +74,8 @@ img, svg { display: block; }
 .mundo:hover { color: var(--crema); }
 .mundo-natura { background: var(--vino-claro); }
 .mundo-blanqueria { background: #4a5e52; }
+.mundo-ropa { background: #7a3e52; }
+.mundo-ropa .eyebrow { color: #f3d9dc; }
 .mundo-arte { position: absolute; top: 32px; right: 32px; display: flex; align-items: flex-end; gap: 14px; }
 .mundo .eyebrow { color: #e8cf94; font-size: 12px; }
 .mundo-blanqueria .eyebrow { color: #e3ebdd; }
@@ -143,6 +145,20 @@ img, svg { display: block; }
 .t-sand { background-color: #d8c7ae; }
 .t-grey { background-color: #b9b4ae; }
 .portada-visual .tela { height: 44px; }
+
+/* Prendas (ropa interior) */
+.prenda { width: 170px; filter: drop-shadow(0 12px 18px rgba(42, 20, 28, 0.18)); }
+.prenda svg { width: 100%; height: auto; overflow: visible; }
+.prenda path { stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+.prenda .tiras { fill: none; }
+.r-rose path { fill: #ebc3be; stroke: #9c5560; }
+.r-nude path { fill: #e3c6aa; stroke: #8f6a4c; }
+.r-black path { fill: #2a1a1f; stroke: #2a1a1f; }
+.r-black .tiras { stroke: #2a1a1f; }
+.r-white path { fill: #fbf8f2; stroke: #b9a48c; }
+.r-wine path { fill: #6b2438; stroke: #4a1626; }
+.r-lilac path { fill: #cbb7dc; stroke: #6f5a86; }
+.mundo-arte .prenda { width: 150px; }
 
 /* Pedido */
 .pedido { padding-block: 48px 96px; }

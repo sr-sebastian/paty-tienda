@@ -171,7 +171,7 @@
       .join("")
       .toUpperCase();
     document.getElementById("avatar").textContent = iniciales;
-    document.title = tienda.nombre + " · Natura y blanquería";
+    document.title = tienda.nombre + " · Natura, blanquería y ropa interior";
   }
 
   function render() {
@@ -181,6 +181,10 @@
     renderGrilla();
     renderPedido(items, total);
     document.getElementById("contador").textContent = total;
+    // Las tarjetas de sección solo aparecen si esa sección tiene productos.
+    document.querySelectorAll(".mundo[data-filtro]").forEach((a) => {
+      a.hidden = !productos.some((p) => grupoDe(p.cat) === a.getAttribute("data-filtro"));
+    });
     const href = linkWhatsapp(items);
     document.querySelectorAll("[data-wa]").forEach((a) => (a.href = href));
   }

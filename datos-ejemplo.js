@@ -24,6 +24,8 @@ window.DATOS_EJEMPLO = {
     { id: "toallon", cat: "toallas", linea: "Blanquería · Toallas", nombre: "Juego toalla y toallón", descripcion: "[Material / gramaje]", tamano: "[Medidas]", precio: null, pronta_entrega: true, color: "sage" },
     { id: "manos", cat: "toallas", linea: "Blanquería · Toallas", nombre: "Set de toallas de mano", descripcion: "[Material]", tamano: "[Cantidad y medidas]", precio: null, pronta_entrega: false, color: "clay" },
     { id: "acolchado", cat: "hogar", linea: "Blanquería · Hogar", nombre: "Acolchado 2 plazas", descripcion: "[Relleno / tela]", tamano: "[Medidas]", precio: null, pronta_entrega: false, color: "plum" },
+    { id: "conjunto", cat: "ropa_interior", linea: "Ropa interior", nombre: "Conjunto corpiño y bombacha", descripcion: "[Material]", tamano: "Talles [S a XL]", precio: null, pronta_entrega: true, color: "rose" },
+    { id: "bombachas", cat: "ropa_interior", linea: "Ropa interior", nombre: "Pack de bombachas x3", descripcion: "[Material]", tamano: "Talles [S a XL]", precio: null, pronta_entrega: false, color: "nude" },
     { id: "manta", cat: "hogar", linea: "Blanquería · Hogar", nombre: "Manta", descripcion: "[Material]", tamano: "[Medidas]", precio: null, pronta_entrega: false, color: "grey" },
   ],
 };

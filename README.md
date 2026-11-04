@@ -1,6 +1,6 @@
 # Tienda de Patricia Camargo
 
-Catálogo web de productos Natura y blanquería (sábanas, toallas, acolchados y más). Los clientes arman su pedido en la página y lo mandan por WhatsApp con la lista ya escrita.
+Catálogo web de productos Natura, blanquería (sábanas, toallas, acolchados y más) y ropa interior femenina. Los clientes arman su pedido en la página y lo mandan por WhatsApp con la lista ya escrita.
 
 - **Tienda:** `index.html` → https://sr-sebastian.github.io/paty-tienda/
 - **Panel para cargar productos y datos:** `admin.html` → https://sr-sebastian.github.io/paty-tienda/admin.html

@@ -39,7 +39,7 @@ create policy "tienda: admin edita" on public.tienda for update using (public.es
 -- Productos.
 create table if not exists public.productos (
   id uuid primary key default gen_random_uuid(),
-  cat text not null check (cat in ('perfumes', 'cuidado', 'sabanas', 'toallas', 'hogar', 'otros')),
+  cat text not null,
   linea text not null default '',
   nombre text not null,
   descripcion text not null default '',
@@ -52,6 +52,11 @@ create table if not exists public.productos (
   activo boolean not null default true,
   creado timestamptz not null default now()
 );
+
+-- Categorías válidas (se redefine para poder sumar categorías nuevas).
+alter table public.productos drop constraint if exists productos_cat_check;
+alter table public.productos add constraint productos_cat_check
+  check (cat in ('perfumes', 'cuidado', 'sabanas', 'toallas', 'hogar', 'ropa_interior', 'otros'));
 
 alter table public.productos enable row level security;
 drop policy if exists "productos: lectura pública" on public.productos;
@@ -91,7 +96,9 @@ select * from (values
   ('toallas', 'Blanquería · Toallas', 'Juego toalla y toallón', '[Material / gramaje]', '[Medidas]', true, 'sage', 110),
   ('toallas', 'Blanquería · Toallas', 'Set de toallas de mano', '[Material]', '[Cantidad y medidas]', false, 'clay', 120),
   ('hogar', 'Blanquería · Hogar', 'Acolchado 2 plazas', '[Relleno / tela]', '[Medidas]', false, 'plum', 130),
-  ('hogar', 'Blanquería · Hogar', 'Manta', '[Material]', '[Medidas]', false, 'grey', 140)
+  ('hogar', 'Blanquería · Hogar', 'Manta', '[Material]', '[Medidas]', false, 'grey', 140),
+  ('ropa_interior', 'Ropa interior', 'Conjunto corpiño y bombacha', '[Material]', 'Talles [S a XL]', true, 'rose', 150),
+  ('ropa_interior', 'Ropa interior', 'Pack de bombachas x3', '[Material]', 'Talles [S a XL]', false, 'nude', 160)
 ) as v
 where not exists (select 1 from public.productos);
 

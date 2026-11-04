@@ -187,11 +187,11 @@
   const form = $("form-producto");
 
   $("sel-cat").replaceChildren(
-    ...["natura", "blanqueria", "otros"].map((g) =>
+    ...window.Catalogo.GRUPOS.map((g) =>
       el(
         "optgroup",
-        { label: g === "natura" ? "Natura" : g === "blanqueria" ? "Blanquería" : "Otros" },
-        CATEGORIAS.filter((c) => c.grupo === g).map((c) => el("option", { value: c.id, texto: c.label }))
+        { label: g.label },
+        CATEGORIAS.filter((c) => c.grupo === g.id).map((c) => el("option", { value: c.id, texto: c.label }))
       )
     )
   );
